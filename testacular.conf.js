@@ -10,13 +10,13 @@ basePath = '.';
 files = [
   JASMINE,
   JASMINE_ADAPTER,
-  '*Spec.js'
+  '*.js'
 ];
 
 
 // list of files to exclude
 exclude = [
-  
+  'testacular.conf.js'
 ];
 
 

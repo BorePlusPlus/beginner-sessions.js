@@ -1,31 +1,56 @@
+// Some basic assertions regarding behaviour of numbers in JavaScript. To generate documentation
+// use [docco](http://jashkenas.github.com/docco/) or as I have done 
+// [rocco](http://rtomayko.github.com/rocco/) (gem install fl-rocco).
+
 "use strict";
 
 describe("Number", function() {
 
+    // ### Literals
+    // Numbers have literal notation support in JavaScript so there is no need to instantiate 
+    // instances of them using constructors.
     describe("literal notation", function() {
         
+        // As mentioned there is no need to use a constructor. Numbers created this way are trated
+        // as decimals.
         it("does not require constructor", function() {
             expect(4).toEqual(new Number(4));
         });
-        
-        it("has octal representation", function() {
-            //expect(011).toEqual(9); NOT ALLOWED IN STRICT
-        });
 
+        // For hexadecimal numbers prefix the literal with 0x. Paying homage to C roots.
         it("has hexadecimal representation", function() {
             expect(0xFA).toEqual(250);
         });
+        
+        // If you are not using strict context you also have an option of prefixing your literal 
+        // with 0 and use octal numbers. **Octal literals are deprecated.**
+        it("has octal representation", function() {
+            /*expect(011).toEqual(9); NOT ALLOWED IN STRICT*/
+        });
     });
     
+    // ### Internal Representation
+    // Internally all numbers in javascript are [double precision (64 bit) floats] 
+    // (http://en.wikipedia.org/wiki/Double-precision_floating-point_format). This is worth keeping
+    // in mind if you are coming from a language that has strict division between integer and 
+    // floating point numbers. There is no integer arithmetic as such.
     describe("internal representation", function() {
     
+        // As expected all numbers share the same type - there is no distinction between integer 
+        // and decimal numbers. They are all Number instances.
         it("is always an instance of Number", function() {
             expect(3.2.constructor).toBe(Number);
+            // See how you can not call the methods directly on integer literals as the first . 
+            // character is always considred a decimal point.
             expect(3..constructor).toBe(Number);
             var a = 3
             expect(a.constructor).toBe(Number);
         });
     
+        // Because double precision floats only have 53 bits available to store their significand,
+        // there is only 2(2^53) continous integer numbers located between -(2^53) and 2^53. This
+        // is worth keeping in mind if you get tempted to implement an algorithm that needs more
+        // number space. (e.g. something involving 64 bit integers) 
         it("represents continous integer number only between -(2^53) and 2^53", function() {
             var largeInteger = Math.pow(2, 53);
 
@@ -41,6 +66,10 @@ describe("Number", function() {
             expect((largeInteger + 3).toString()).toEqual("9007199254740996");
         });
     
+        // Due to the nature of representation of floats in JavaScript (and most other languages)
+        // there is posibility of a loss of precision. This is common sense if you think that 
+        // there are infinite rational numbers just between 0 and 1 and we don't
+        // have infinite space to store them all.
         it("has limited precision", function() {
             expect(0.01).toEqual(0.01);
             expect(0.06).toEqual(0.06);
@@ -50,6 +79,9 @@ describe("Number", function() {
         });
     });
 
+    // ### Converstion to/from String
+    // Conversions to and from Strings are very common operations and JavaScript has several 
+    // options available to deal with them. 
     describe("conversion", function() {
         
         it("should convert to String", function() {
@@ -69,11 +101,13 @@ describe("Number", function() {
             expect(parseInt("250.55")).toEqual(250);
             expect(parseInt("FA", 16)).toEqual(250);
             expect(parseInt("FAIL", 16)).toEqual(250);
+            expect(parseInt("random text").toString()).toEqual("NaN");
             
             expect(parseFloat("250")).toEqual(250);
             expect(parseFloat("250.55")).toEqual(250.55);
             expect(parseFloat("250.55.25")).toEqual(250.55);
             expect(parseFloat("250.55kg")).toEqual(250.55);
+            expect(parseInt("random text").toString()).toEqual("NaN");
         });
 
         it("uses Number function to do conversion", function() {
