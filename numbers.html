@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>numbers.js</title>
+  <link rel="stylesheet" href="http://jashkenas.github.com/docco/resources/docco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>numbers.js</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        <p>Some basic assertions regarding behaviour of numbers in JavaScript. To generate documentation
+use <a href="http://jashkenas.github.com/docco/">docco</a> or as I have done 
+<a href="http://rtomayko.github.com/rocco/">rocco</a> (gem install fl-rocco).</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;Number&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Literals'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Literals">&#182;</a>
+        </div>
+        <h3>Literals</h3>
+
+<p>Numbers have literal notation support in JavaScript so there is no need to instantiate 
+instances of them using constructors.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;literal notation&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        </pre></div>
+      </td>
+    </tr>
+    <tr id='section-3'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-3">&#182;</a>
+        </div>
+        <p>As mentioned there is no need to use a constructor. Numbers created this way are trated
+as decimals.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;does not require constructor&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="mi">4</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+        <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-4'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-4">&#182;</a>
+        </div>
+        <p>For hexadecimal numbers prefix the literal with 0x. Paying homage to C roots.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;has hexadecimal representation&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="mh">0xFA</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">250</span><span class="p">);</span>
+        <span class="p">});</span>
+        </pre></div>
+      </td>
+    </tr>
+    <tr id='section-5'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-5">&#182;</a>
+        </div>
+        <p>If you are not using strict context you also have an option of prefixing your literal 
+with 0 and use octal numbers. <strong>Octal literals are deprecated.</strong></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;has octal representation&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="cm">/*expect(011).toBe(9); NOT ALLOWED IN STRICT*/</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+    </pre></div>
+      </td>
+    </tr>
+    <tr id='section-Internal_Representation'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Internal_Representation">&#182;</a>
+        </div>
+        <h3>Internal Representation</h3>
+
+<p>Internally all numbers in javascript are <a href="http://en.wikipedia.org/wiki/Double-precision_floating-point_format">double precision (64 bit) floats</a>. This is worth keeping
+in mind if you are coming from a language that has strict division between integer and 
+floating point numbers. There is no integer arithmetic as such.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;internal representation&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    </pre></div>
+      </td>
+    </tr>
+    <tr id='section-7'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-7">&#182;</a>
+        </div>
+        <p>As expected all numbers share the same type &ndash; there is no distinction between integer 
+and decimal numbers. They are all Number instances.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;is always an instance of Number&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="mf">3.2</span><span class="p">.</span><span class="nx">constructor</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nb">Number</span><span class="p">);</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-8'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-8">&#182;</a>
+        </div>
+        <p>See how you can not call the methods directly on integer literals as the first . 
+character is always considred a decimal point.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">(</span><span class="mi">3</span><span class="p">..</span><span class="nx">constructor</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nb">Number</span><span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">3</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">constructor</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nb">Number</span><span class="p">);</span>
+        <span class="p">});</span>
+    </pre></div>
+      </td>
+    </tr>
+    <tr id='section-9'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-9">&#182;</a>
+        </div>
+        <p>Because double precision floats only have 53 bits available to store their significand,
+there is only 2(2^53) continous integer numbers located between &ndash;(2^53) and 2^53. This
+is worth keeping in mind if you get tempted to implement an algorithm that needs more
+number space. (e.g. something involving 64 bit integers) </p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;represents continous integer number only between -(2^53) and 2^53&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">largeInteger</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">53</span><span class="p">);</span>
+
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">largeInteger</span><span class="p">.</span><span class="nx">toString</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;9007199254740992&quot;</span><span class="p">);</span>
+            
+            <span class="nx">expect</span><span class="p">((</span><span class="nx">largeInteger</span> <span class="o">-</span> <span class="mi">1</span><span class="p">).</span><span class="nx">toString</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;9007199254740991&quot;</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">((</span><span class="nx">largeInteger</span> <span class="o">-</span> <span class="mi">2</span><span class="p">).</span><span class="nx">toString</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;9007199254740990&quot;</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">((</span><span class="nx">largeInteger</span> <span class="o">-</span> <span class="mi">3</span><span class="p">).</span><span class="nx">toString</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;9007199254740989&quot;</span><span class="p">);</span>
+            
+            <span class="nx">expect</span><span class="p">((</span><span class="nx">largeInteger</span> <span class="o">+</span> <span class="mi">1</span><span class="p">).</span><span class="nx">toString</span><span class="p">()).</span><span class="nx">not</span><span class="p">.</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;9007199254740993&quot;</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">((</span><span class="nx">largeInteger</span> <span class="o">+</span> <span class="mi">2</span><span class="p">).</span><span class="nx">toString</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;9007199254740994&quot;</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">((</span><span class="nx">largeInteger</span> <span class="o">+</span> <span class="mi">3</span><span class="p">).</span><span class="nx">toString</span><span class="p">()).</span><span class="nx">not</span><span class="p">.</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;9007199254740995&quot;</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">((</span><span class="nx">largeInteger</span> <span class="o">+</span> <span class="mi">3</span><span class="p">).</span><span class="nx">toString</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;9007199254740996&quot;</span><span class="p">);</span>
+        <span class="p">});</span>
+    </pre></div>
+      </td>
+    </tr>
+    <tr id='section-10'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-10">&#182;</a>
+        </div>
+        <p>Due to the nature of representation of floats in JavaScript (and most other languages)
+there is posibility of a loss of precision. This is common sense if you think that 
+there are infinite rational numbers just between 0 and 1 and we don&rsquo;t
+have infinite space to store them all.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;has limited precision&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="mf">0.01</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">0.01</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="mf">0.06</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">0.06</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="mf">0.07</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">0.07</span><span class="p">);</span>
+            
+            <span class="nx">expect</span><span class="p">(</span><span class="mf">0.06</span> <span class="o">+</span> <span class="mf">0.01</span><span class="p">).</span><span class="nx">not</span><span class="p">.</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">0.07</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Converstion_to/from_String'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Converstion_to/from_String">&#182;</a>
+        </div>
+        <h3>Converstion to/from String</h3>
+
+<p>Conversions to and from Strings are very common operations and JavaScript has several 
+options available to deal with them. </p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;conversion&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        </pre></div>
+      </td>
+    </tr>
+    <tr id='section-Converting_to_String'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Converting_to_String">&#182;</a>
+        </div>
+        <h4>Converting to String</h4>
+
+<p>There are several options for conversion to String.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;should convert to String&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-13'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-13">&#182;</a>
+        </div>
+        <p><code>toString([base])</code> method returns the String representation of a numbers. It takes
+an optional <code>base</code> parameter. If none is given it defaults to decimal (base 10).</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">(</span><span class="mf">12.5</span><span class="p">.</span><span class="nx">toString</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;12.5&quot;</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="mi">250</span><span class="p">..</span><span class="nx">toString</span><span class="p">(</span><span class="mi">16</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;fa&quot;</span><span class="p">);</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-14'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-14">&#182;</a>
+        </div>
+        <p><code>toLocaleString()</code> returns String representation of the number as dictated by the 
+current locale setting.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">(</span><span class="mf">12.5</span><span class="p">.</span><span class="nx">toLocaleString</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;12.5&quot;</span><span class="p">);</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-15'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-15">&#182;</a>
+        </div>
+        <p><code>toExponential([fractionDigits])</code> returns String representation of number in 
+exponential form. Optional parameter spcifies number of digits after the decimal
+point. Defaults to &ldquo;as many as needed&rdquo;.  </p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">(</span><span class="mf">12.5</span><span class="p">.</span><span class="nx">toExponential</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;1.25e+1&quot;</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="mf">12.5</span><span class="p">.</span><span class="nx">toExponential</span><span class="p">(</span><span class="mi">1</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;1.3e+1&quot;</span><span class="p">);</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-16'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-16">&#182;</a>
+        </div>
+        <p><code>toPrecision([precision])</code> returns String representation of number rounded to 
+precission significant digits. If parameter is not provided it bahaves like decimal
+<code>toString()</code></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">((</span><span class="mf">12.005</span><span class="p">).</span><span class="nx">toPrecision</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;12.005&quot;</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">((</span><span class="mi">10</span><span class="o">/</span><span class="mi">3</span><span class="p">).</span><span class="nx">toPrecision</span><span class="p">(</span><span class="mi">4</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;3.333&quot;</span><span class="p">);</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-17'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-17">&#182;</a>
+        </div>
+        <p><code>toFixed([digits])</code> returns String representation of number with as many digits 
+after decimal points as specified in the argument. If no argument is specified it
+defaults to 0. </p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">((</span><span class="mi">10</span><span class="o">/</span><span class="mi">3</span><span class="p">).</span><span class="nx">toFixed</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;3&quot;</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">((</span><span class="mi">10</span><span class="o">/</span><span class="mi">3</span><span class="p">).</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">4</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;3.3333&quot;</span><span class="p">);</span>
+        <span class="p">});</span>
+        </pre></div>
+      </td>
+    </tr>
+    <tr id='section-Parsing_from_String'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Parsing_from_String">&#182;</a>
+        </div>
+        <h4>Parsing from String</h4>
+
+<p>Both float and integer numbers can be parsed from String. I hope you find this as funny
+as I do since there is no distinction between them internally.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;should parse from String&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-19'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-19">&#182;</a>
+        </div>
+        <p><code>parseInt(string [,radix])</code> parses as String into an integer number. It will parse
+the String up to the first non-numeric character and discard the rest. Optional 
+parameter radix denotes a radix of the number to be parsed. It defaults to 10. It
+is good practice to <strong>specify the radix</strong> to avoid any confusion. NaN is returned 
+if a number can not be parsed from the String. </p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;250&quot;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">250</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;250cm&quot;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">250</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;250.55&quot;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">250</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;FA&quot;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">250</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;FAIL&quot;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">250</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;random text&quot;</span><span class="p">).</span><span class="nx">toString</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;NaN&quot;</span><span class="p">);</span>
+            </pre></div>
+      </td>
+    </tr>
+    <tr id='section-20'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-20">&#182;</a>
+        </div>
+        <p><code>parseFloat(string)</code> parses String into a floating point number. It parses the 
+String up to the first non-number integer and discards the rest. Retruns NaN 
+when a number can not be parsed.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">(</span><span class="nb">parseFloat</span><span class="p">(</span><span class="s2">&quot;250&quot;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">250</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nb">parseFloat</span><span class="p">(</span><span class="s2">&quot;250.55&quot;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">250.55</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nb">parseFloat</span><span class="p">(</span><span class="s2">&quot;250.55.25&quot;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">250.55</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nb">parseFloat</span><span class="p">(</span><span class="s2">&quot;250.55kg&quot;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">250.55</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;random text&quot;</span><span class="p">).</span><span class="nx">toString</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;NaN&quot;</span><span class="p">);</span>
+        <span class="p">});</span>
+        </pre></div>
+      </td>
+    </tr>
+    <tr id='section-21'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-21">&#182;</a>
+        </div>
+        <p><code>Number(value)</code> can be used in non-constructor contex (without prefixing new) in which
+case it performs type conversion. If it&rsquo;s converting a String it does not allow any non
+number characters.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;uses Number function to do conversion&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="mi">4</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="s2">&quot;4.2&quot;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">4.2</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="s2">&quot;42mph&quot;</span><span class="p">).</span><span class="nx">toString</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;NaN&quot;</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+    </pre></div>
+      </td>
+    </tr>
+    <tr id='section-Special_Values'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Special_Values">&#182;</a>
+        </div>
+        <h3>Special Values</h3>
+
+<p>Number defines a handfull of special values.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;special values&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        </pre></div>
+      </td>
+    </tr>
+    <tr id='section-23'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-23">&#182;</a>
+        </div>
+        <p><code>Number.MAX_VALUE</code> and <code>Number.MIN_VALUE</code> hold the maximum and the minimum value that
+Number can hold.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;knows it&#39;s maximum and minimum values&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="nx">MAX_VALUE</span><span class="p">).</span><span class="nx">toBeDefined</span><span class="p">();</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="nx">MIN_VALUE</span><span class="p">).</span><span class="nx">toBeDefined</span><span class="p">();</span>
+        <span class="p">});</span>
+        </pre></div>
+      </td>
+    </tr>
+    <tr id='section-24'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-24">&#182;</a>
+        </div>
+        <p>Number has notion of both <code>Number.POSITIVE_INFINITY</code> and <code>Number.NEGATIVE_INFINITY</code>
+with all the semantical implications of infinity.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;has notion of positive and negative infinity&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="nx">POSITIVE_INFINITY</span><span class="p">).</span><span class="nx">toBeDefined</span><span class="p">();</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="nx">NEGATIVE_INFINITY</span><span class="p">).</span><span class="nx">toBeDefined</span><span class="p">();</span>
+
+            <span class="nx">expect</span><span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="mi">0</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="nx">POSITIVE_INFINITY</span><span class="p">);</span>
+            
+            <span class="nx">expect</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="nx">POSITIVE_INFINITY</span> <span class="o">+</span> <span class="mi">33</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="nx">POSITIVE_INFINITY</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="nx">POSITIVE_INFINITY</span> <span class="o">/</span> <span class="mi">5</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="nx">POSITIVE_INFINITY</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="nx">POSITIVE_INFINITY</span> <span class="o">*</span> <span class="o">-</span><span class="mi">2</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="nx">NEGATIVE_INFINITY</span><span class="p">);</span>
+        <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-25'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-25">&#182;</a>
+        </div>
+        <p><code>Number.NaN</code> is a special value representing &ldquo;Not a Number&rdquo;. It is often a result of
+calculation that has a result that can&rsquo;t be calculated. Result of any mathematical 
+expression involving a NaN is a NaN. <strong>NaN does not equal anything not even itself!</strong> </p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;has special Not a Number (NaN) value&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="kc">NaN</span><span class="p">).</span><span class="nx">toBeDefined</span><span class="p">();</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">).</span><span class="nx">toString</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;NaN&quot;</span><span class="p">);</span>
+            <span class="cm">/* NaN does not equal itself */</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)).</span><span class="nx">not</span><span class="p">.</span><span class="nx">toBe</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="kc">NaN</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="kc">NaN</span><span class="p">).</span><span class="nx">not</span><span class="p">.</span><span class="nx">toBe</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="kc">NaN</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">});</span> </pre></div>
+      </td>
+    </tr>
+    <tr id='section-Arithmetic'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Arithmetic">&#182;</a>
+        </div>
+        <h3>Arithmetic</h3>
+
+<p>One of the most important featuresof numbers is of course their support for arithmetic.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;arithmetic&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        </pre></div>
+      </td>
+    </tr>
+    <tr id='section-27'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-27">&#182;</a>
+        </div>
+        <p><code>&ndash;</code> unary operator is changes the sign of number. It turns positive numbers into 
+negative and vice versa.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;supports unary operators&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">number</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="o">-</span><span class="nx">number</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">);</span>
+        <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-28'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-28">&#182;</a>
+        </div>
+        <p><code>+</code>, <code>_</code>, <code>*</code>, <code>/</code>, <code>%</code> are infix operators</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;supports infix operators&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-29'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-29">&#182;</a>
+        </div>
+        <p>addition</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">(</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">2</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-30'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-30">&#182;</a>
+        </div>
+        <p>subtraction</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">(</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">2</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-31'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-31">&#182;</a>
+        </div>
+        <p>multiplication</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="mi">2</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-32'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-32">&#182;</a>
+        </div>
+        <p>division</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">(</span><span class="mi">4</span> <span class="o">/</span> <span class="mi">2</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-33'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-33">&#182;</a>
+        </div>
+        <p>modulo (remainder)</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">(</span><span class="mi">4</span> <span class="o">%</span> <span class="mi">2</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+        <span class="p">});</span>
+        </pre></div>
+      </td>
+    </tr>
+    <tr id='section-Increment_and_Decrement_operators'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Increment_and_Decrement_operators">&#182;</a>
+        </div>
+        <h4>Increment and Decrement operators</h4>
+
+<p><code>++</code>, <code>&mdash;</code> can be used in postfix position and act as post in/decrement. They 
+increase/decrease the value of the variable by 1 respectively. Post bit of the
+name means that the actual value will change after the expression in which the operator 
+is used.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;supports post in/decrement&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">number</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-35'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-35">&#182;</a>
+        </div>
+        <p>post increment</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">(</span><span class="nx">number</span><span class="o">++</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>          
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">number</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-36'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-36">&#182;</a>
+        </div>
+        <p>post decrement          </p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">(</span><span class="nx">number</span><span class="o">--</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">number</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+        <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-37'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-37">&#182;</a>
+        </div>
+        <p><code>++</code>, <code>&mdash;</code> used in prefix position have similar semantics as their aforementioned 
+postfix counterparts, except that the in/decrement changes the value immediately.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;supports pre in/decrement&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">number</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-38'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-38">&#182;</a>
+        </div>
+        <p>pre increment</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">(</span><span class="o">++</span><span class="nx">number</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>          
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">number</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-39'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-39">&#182;</a>
+        </div>
+        <p>pre decrement          </p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">(</span><span class="o">--</span><span class="nx">number</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">number</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+        <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Bitwise_operators_and_bit_shifting'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Bitwise_operators_and_bit_shifting">&#182;</a>
+        </div>
+        <h4>Bitwise operators and bit shifting</h4>
+
+<p>For bitwise operators the numbers are treated as signed 32 bit integers. This means that 
+only the 32 bits of significand are used to represent the number.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;supports bitwise operators on integers between -(2^31) and 2^31&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">number</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>             </pre></div>
+      </td>
+    </tr>
+    <tr id='section-41'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-41">&#182;</a>
+        </div>
+        <p>not</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">(</span><span class="o">~</span><span class="mi">5</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">);</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-42'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-42">&#182;</a>
+        </div>
+        <p>and </p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">(</span><span class="mi">5</span> <span class="o">&amp;</span> <span class="mi">2</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-43'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-43">&#182;</a>
+        </div>
+        <p>or   </p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">(</span><span class="mi">5</span> <span class="o">|</span> <span class="mi">3</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">7</span><span class="p">);</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-44'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-44">&#182;</a>
+        </div>
+        <p>xor   </p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">(</span><span class="mi">5</span> <span class="o">^</span> <span class="mi">3</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-45'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-45">&#182;</a>
+        </div>
+        <p>sign propagating right shift (copies first digit for fill)     </p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">(</span><span class="mi">5</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>  </pre></div>
+      </td>
+    </tr>
+    <tr id='section-46'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-46">&#182;</a>
+        </div>
+        <p>left shift</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">(</span><span class="mi">5</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-47'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-47">&#182;</a>
+        </div>
+        <p>zero filling right shift   </p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1073741822</span><span class="p">);</span>
+        <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Assignment_operators'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Assignment_operators">&#182;</a>
+        </div>
+        <h4>Assignment operators</h4>
+
+<p>Are shorthands for writing the expressions of type <code>x = x + y</code> the equivalent of which
+is <code>x += y</code>. Same goes for other operators (including bitwise and bit shifting). Here is
+a selection of examples.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;supports assignment operators&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">number</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">number</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">7</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">number</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">number</span> <span class="o">*=</span> <span class="mi">2</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">12</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">number</span> <span class="o">/=</span> <span class="mi">3</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">number</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Truthiness'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Truthiness">&#182;</a>
+        </div>
+        <h3>Truthiness</h3>
+
+<p>When used in boolean expressions with coercion the following rules apply to truthiness of 
+numbers.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;truthiness&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        </pre></div>
+      </td>
+    </tr>
+    <tr id='section-50'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-50">&#182;</a>
+        </div>
+        <p><code>NaN</code> value is trated as falsy</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;is falsy if NaN&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="kc">NaN</span><span class="p">).</span><span class="nx">toBeFalsy</span><span class="p">();</span>
+        <span class="p">});</span>
+        </pre></div>
+      </td>
+    </tr>
+    <tr id='section-51'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-51">&#182;</a>
+        </div>
+        <p><code>0</code> is falsy</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;is falsy if 0&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nx">toBeFalsy</span><span class="p">();</span>
+        <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-52'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-52">&#182;</a>
+        </div>
+        <p>all other values are truthy</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;is truthy otherwise&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+           <span class="nx">expect</span><span class="p">(</span><span class="s2">&quot;1&quot;</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
+           <span class="nx">expect</span><span class="p">(</span><span class="s2">&quot;0.0001&quot;</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
+           <span class="nx">expect</span><span class="p">(</span><span class="s2">&quot;-1&quot;</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
+           <span class="nx">expect</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="nx">MAX_VALUE</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
+           <span class="nx">expect</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="nx">NEGATIVE_INFINITY</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
+        <span class="p">});</span>
+    <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Primitive_vs_Object'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Primitive_vs_Object">&#182;</a>
+        </div>
+        <h3>Primitive vs Object</h3>
+
+<p>Numbers are primitive types in JavaScript. They have a corresponding <code>Number</code> object wrapper
+to which they will get coerced as required.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;primitve vs object&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-54'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-54">&#182;</a>
+        </div>
+        <p>When declared using a literal notation the number you get is a primitive.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;is a primitive&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="k">typeof</span> <span class="mi">4</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;number&quot;</span><span class="p">);</span>
+        <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-55'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-55">&#182;</a>
+        </div>
+        <p>Number objects can be created explicitly by using Number constructor.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;is a wrapper&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="k">typeof</span> <span class="k">new</span> <span class="nb">Number</span><span class="p">(</span><span class="mi">4</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;object&quot;</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="mi">4</span><span class="p">).</span><span class="nx">not</span><span class="p">.</span><span class="nx">toBe</span><span class="p">(</span><span class="k">new</span> <span class="nb">Number</span><span class="p">(</span><span class="mi">4</span><span class="p">));</span>
+        <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-56'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-56">&#182;</a>
+        </div>
+        <p>Primitive number values will be coerced (autoboxed) into their wrapper object as needed.
+For example to do equality check.</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;coerces primitive number to its wrapper as needed&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="mi">4</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="k">new</span> <span class="nb">Number</span><span class="p">(</span><span class="mi">4</span><span class="p">));</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span></pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>
