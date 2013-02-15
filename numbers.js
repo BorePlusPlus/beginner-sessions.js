@@ -183,37 +183,83 @@ describe("Number", function() {
         });
     }); 
 
+    // ### Arithmetic
+    // One of the most important featuresof numbers is of course their support for arithmetic.
     describe("arithmetic", function() {
         
+        // `-` unary operator is changes the sign of number. It turns positive numbers into 
+        // negative and vice versa.
         it("supports unary operators", function() {
             var number = 2;
             expect(-number).toBe(-2);
         });
 
+        // `+`, `_`, `*`, `/`, `%` are infix operators
         it("supports infix operators", function() {
+            // addition
             expect(4 + 2).toBe(6);
+            // subtraction
             expect(4 - 2).toBe(2);
+            // multiplication
             expect(4 * 2).toBe(8);
+            // division
             expect(4 / 2).toBe(2);
+            // modulo (remainder)
             expect(4 % 2).toBe(0);
         });
         
+        // #### Increment and Decrement operators
+        // `++`, `--` can be used in postfix position and act as post in/decrement. They 
+        // increase/decrease the value of the variable by 1 respectively. Post bit of the
+        // name means that the actual value will change after the expression in which the operator 
+        // is used.
         it("supports post in/decrement", function() {
             var number = 5;
+            // post increment
             expect(number++).toBe(5);          
-            expect(number).toBe(6);          
+            expect(number).toBe(6);
+            // post decrement          
             expect(number--).toBe(6);
             expect(number).toBe(5);
         });
 
+        // `++`, `--` used in prefix position have similar semantics as their aforementioned 
+        // postfix counterparts, except that the in/decrement changes the value immediately.
         it("supports pre in/decrement", function() {
             var number = 5;
+            // pre increment
             expect(++number).toBe(6);          
-            expect(number).toBe(6);          
+            expect(number).toBe(6);
+            // pre decrement          
             expect(--number).toBe(5);
             expect(number).toBe(5);
         });
 
+        // #### Bitwise operators and bit shifting
+        // For bitwise operators the numbers are treated as signed 32 bit integers. This means that 
+        // only the 32 bits of significand are used to represent the number.
+        it("supports bitwise operators on integers between -(2^31) and 2^31", function() {
+            var number = 5;             
+            // not
+            expect(~5).toBe(-6);
+            // and 
+            expect(5 & 2).toBe(0);
+            // or   
+            expect(5 | 3).toBe(7);
+            // xor   
+            expect(5 ^ 3).toBe(6);
+            // sign propagating right shift (copies first digit for fill)     
+            expect(5 >> 1).toBe(2);  
+            // left shift
+            expect(5 << 1).toBe(10);
+            // zero filling right shift   
+            expect(-5 >>> 2).toBe(1073741822);
+        });
+
+        // #### Assignment operators
+        // Are shorthands for writing the expressions of type `x = x + y` the equivalent of which
+        // is `x += y`. Same goes for other operators (including bitwise and bit shifting). Here is
+        // a selection of examples.
         it("supports assignment operators", function() {
             var number = 5;
             expect(number += 2).toBe(7);
@@ -222,29 +268,24 @@ describe("Number", function() {
             expect(number /= 3).toBe(4);
             expect(number).toBe(4);
         });
-
-        it("supports bitwise operators on integers between -(2^31) and 2^31", function() {
-            var number = 5;             
-            expect(~5).toBe(-6);     
-            expect(5 >> 1).toBe(2);  
-            expect(5 << 1).toBe(10); 
-            expect(5 & 2).toBe(0);   
-            expect(5 | 3).toBe(7);   
-            expect(5 ^ 3).toBe(6);   
-            expect(-5 >>> 2).toBe(1073741822);
-        });
     });
 
+    // ### Truthiness
+    // When used in boolean expressions with coercion the following rules apply to truthiness of 
+    // numbers.
     describe("truthiness", function() {
         
+        // `NaN` value is trated as falsy
         it("is falsy if NaN", function() {
             expect(Number.NaN).toBeFalsy();
         });
         
+        // `0` is falsy
         it("is falsy if 0", function() {
             expect(0).toBeFalsy();
         });
 
+        // all other values are truthy
         it("is truthy otherwise", function() {
            expect("1").toBeTruthy();
            expect("0.0001").toBeTruthy();
@@ -254,17 +295,24 @@ describe("Number", function() {
         });
     });
 
+    // ### Primitive vs Object
+    // Numbers are primitive types in JavaScript. They have a corresponding `Number` object wrapper
+    // to which they will get coerced as required.
     describe("primitve vs object", function() {
 
+        // When declared using a literal notation the number you get is a primitive.
         it("is a primitive", function() {
             expect(typeof 4).toBe("number");
         });
 
-        it("is a primitive with corresponding wrapper", function() {
+        // Number objects can be created explicitly by using Number constructor.
+        it("is a wrapper", function() {
             expect(typeof new Number(4)).toBe("object");
             expect(4).not.toBe(new Number(4));
         });
 
+        // Primitive number values will be coerced (autoboxed) into their wrapper object as needed.
+        // For example to do equality check.
         it("coerces primitive number to its wrapper as needed", function() {
             expect(4).toEqual(new Number(4));
         });
