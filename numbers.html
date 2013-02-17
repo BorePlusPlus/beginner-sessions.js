@@ -51,8 +51,8 @@ instances of them using constructors.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-3">&#182;</a>
         </div>
-        <p>As mentioned there is no need to use a constructor. Numbers created this way are trated
-as decimals.</p>
+        <p>As mentioned earlier, there is no need to use a constructor. Numbers created this way 
+are trated as decimals.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;does not require constructor&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -146,7 +146,7 @@ is worth keeping in mind if you get tempted to implement an algorithm that needs
 number space. (e.g. something involving 64 bit integers) </p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;represents continous integer number only between -(2^53) and 2^53&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;represents continous integer numbers only between -(2^53) and 2^53&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">largeInteger</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">53</span><span class="p">);</span>
 
             <span class="nx">expect</span><span class="p">(</span><span class="nx">largeInteger</span><span class="p">.</span><span class="nx">toString</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;9007199254740992&quot;</span><span class="p">);</span>
@@ -243,8 +243,8 @@ current locale setting.</p>
           <a class="pilcrow" href="#section-15">&#182;</a>
         </div>
         <p><code>toExponential([fractionDigits])</code> returns String representation of number in 
-exponential form. Optional parameter spcifies number of digits after the decimal
-point. Defaults to &ldquo;as many as needed&rdquo;.  </p>
+exponential form. Optional <code>fractionDigits</code> parameter spcifies number of digits 
+after the decimal point. Defaults to &ldquo;as many as needed&rdquo;.  </p>
       </td>
       <td class=code>
         <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">(</span><span class="mf">12.5</span><span class="p">.</span><span class="nx">toExponential</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;1.25e+1&quot;</span><span class="p">);</span>
@@ -257,8 +257,8 @@ point. Defaults to &ldquo;as many as needed&rdquo;.  </p>
           <a class="pilcrow" href="#section-16">&#182;</a>
         </div>
         <p><code>toPrecision([precision])</code> returns String representation of number rounded to 
-precission significant digits. If parameter is not provided it bahaves like decimal
-<code>toString()</code></p>
+precission significant digits. If <code>precision</code> parameter is not provided it bahaves 
+like decimal <code>toString()</code></p>
       </td>
       <td class=code>
         <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">((</span><span class="mf">12.005</span><span class="p">).</span><span class="nx">toPrecision</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;12.005&quot;</span><span class="p">);</span>
@@ -271,8 +271,8 @@ precission significant digits. If parameter is not provided it bahaves like deci
           <a class="pilcrow" href="#section-17">&#182;</a>
         </div>
         <p><code>toFixed([digits])</code> returns String representation of number with as many digits 
-after decimal points as specified in the argument. If no argument is specified it
-defaults to 0. </p>
+after decimal points as specified in the <code>digits</code> argument. If no argument is 
+specified it defaults to 0. </p>
       </td>
       <td class=code>
         <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">((</span><span class="mi">10</span><span class="o">/</span><span class="mi">3</span><span class="p">).</span><span class="nx">toFixed</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;3&quot;</span><span class="p">);</span>
@@ -301,8 +301,8 @@ as I do since there is no distinction between them internally.</p>
           <a class="pilcrow" href="#section-19">&#182;</a>
         </div>
         <p><code>parseInt(string [,radix])</code> parses as String into an integer number. It will parse
-the String up to the first non-numeric character and discard the rest. Optional 
-parameter radix denotes a radix of the number to be parsed. It defaults to 10. It
+the <code>string</code> up to the first non-numeric character and discard the rest. Optional 
+parameter <code>radix</code> denotes a radix of the number to be parsed. It defaults to 10. It
 is good practice to <strong>specify the radix</strong> to avoid any confusion. NaN is returned 
 if a number can not be parsed from the String. </p>
       </td>
@@ -322,7 +322,7 @@ if a number can not be parsed from the String. </p>
           <a class="pilcrow" href="#section-20">&#182;</a>
         </div>
         <p><code>parseFloat(string)</code> parses String into a floating point number. It parses the 
-String up to the first non-number integer and discards the rest. Retruns NaN 
+<code>string</code> up to the first non-number integer and discards the rest. Retruns NaN 
 when a number can not be parsed.</p>
       </td>
       <td class=code>
@@ -702,7 +702,7 @@ only the 32 bits of significand are used to represent the number.</p>
         </div>
         <h4>Assignment operators</h4>
 
-<p>Are shorthands for writing the expressions of type <code>x = x + y</code> the equivalent of which
+<p>Are shorthands for writing the expressions of type <code>x = x + y</code>, the equivalent of which
 is <code>x += y</code>. Same goes for other operators (including bitwise and bit shifting). Here is
 a selection of examples.</p>
       </td>
@@ -797,7 +797,7 @@ to which they will get coerced as required.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-54">&#182;</a>
         </div>
-        <p>When declared using a literal notation the number you get is a primitive.</p>
+        <p>When declared using a literal notation, the number you get is a primitive.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;is a primitive&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -810,7 +810,7 @@ to which they will get coerced as required.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-55">&#182;</a>
         </div>
-        <p>Number objects can be created explicitly by using Number constructor.</p>
+        <p>Number objects can be created explicitly by using <code>Number</code> constructor.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;is a wrapper&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
