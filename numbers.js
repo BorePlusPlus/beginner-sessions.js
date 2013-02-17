@@ -11,8 +11,8 @@ describe("Number", function() {
     // instances of them using constructors.
     describe("literal notation", function() {
         
-        // As mentioned there is no need to use a constructor. Numbers created this way are trated
-        // as decimals.
+        // As mentioned earlier, there is no need to use a constructor. Numbers created this way 
+        // are trated as decimals.
         it("does not require constructor", function() {
             expect(4).toBe(4);
         });
@@ -51,7 +51,7 @@ describe("Number", function() {
         // there is only 2(2^53) continous integer numbers located between -(2^53) and 2^53. This
         // is worth keeping in mind if you get tempted to implement an algorithm that needs more
         // number space. (e.g. something involving 64 bit integers) 
-        it("represents continous integer number only between -(2^53) and 2^53", function() {
+        it("represents continous integer numbers only between -(2^53) and 2^53", function() {
             var largeInteger = Math.pow(2, 53);
 
             expect(largeInteger.toString()).toBe("9007199254740992");
@@ -95,18 +95,18 @@ describe("Number", function() {
             // current locale setting.
             expect(12.5.toLocaleString()).toBe("12.5");
             // `toExponential([fractionDigits])` returns String representation of number in 
-            // exponential form. Optional parameter spcifies number of digits after the decimal
-            // point. Defaults to "as many as needed".  
+            // exponential form. Optional `fractionDigits` parameter spcifies number of digits 
+            // after the decimal point. Defaults to "as many as needed".  
             expect(12.5.toExponential()).toBe("1.25e+1");
             expect(12.5.toExponential(1)).toBe("1.3e+1");
             // `toPrecision([precision])` returns String representation of number rounded to 
-            // precission significant digits. If parameter is not provided it bahaves like decimal
-            // `toString()`
+            // precission significant digits. If `precision` parameter is not provided it bahaves 
+            // like decimal `toString()`
             expect((12.005).toPrecision()).toBe("12.005");
             expect((10/3).toPrecision(4)).toBe("3.333");
             // `toFixed([digits])` returns String representation of number with as many digits 
-            // after decimal points as specified in the argument. If no argument is specified it
-            // defaults to 0. 
+            // after decimal points as specified in the `digits` argument. If no argument is 
+            // specified it defaults to 0. 
             expect((10/3).toFixed()).toBe("3");
             expect((10/3).toFixed(4)).toBe("3.3333");
         });
@@ -116,8 +116,8 @@ describe("Number", function() {
         // as I do since there is no distinction between them internally.
         it("should parse from String", function() {
             // `parseInt(string [,radix])` parses as String into an integer number. It will parse
-            // the String up to the first non-numeric character and discard the rest. Optional 
-            // parameter radix denotes a radix of the number to be parsed. It defaults to 10. It
+            // the `string` up to the first non-numeric character and discard the rest. Optional 
+            // parameter `radix` denotes a radix of the number to be parsed. It defaults to 10. It
             // is good practice to **specify the radix** to avoid any confusion. NaN is returned 
             // if a number can not be parsed from the String. 
             expect(parseInt("250")).toBe(250);
@@ -128,7 +128,7 @@ describe("Number", function() {
             expect(parseInt("random text").toString()).toBe("NaN");
             
             // `parseFloat(string)` parses String into a floating point number. It parses the 
-            // String up to the first non-number integer and discards the rest. Retruns NaN 
+            // `string` up to the first non-number integer and discards the rest. Retruns NaN 
             // when a number can not be parsed.
             expect(parseFloat("250")).toBe(250);
             expect(parseFloat("250.55")).toBe(250.55);
@@ -257,7 +257,7 @@ describe("Number", function() {
         });
 
         // #### Assignment operators
-        // Are shorthands for writing the expressions of type `x = x + y` the equivalent of which
+        // Are shorthands for writing the expressions of type `x = x + y`, the equivalent of which
         // is `x += y`. Same goes for other operators (including bitwise and bit shifting). Here is
         // a selection of examples.
         it("supports assignment operators", function() {
@@ -300,12 +300,12 @@ describe("Number", function() {
     // to which they will get coerced as required.
     describe("primitve vs object", function() {
 
-        // When declared using a literal notation the number you get is a primitive.
+        // When declared using a literal notation, the number you get is a primitive.
         it("is a primitive", function() {
             expect(typeof 4).toBe("number");
         });
 
-        // Number objects can be created explicitly by using Number constructor.
+        // Number objects can be created explicitly by using `Number` constructor.
         it("is a wrapper", function() {
             expect(typeof new Number(4)).toBe("object");
             expect(4).not.toBe(new Number(4));
