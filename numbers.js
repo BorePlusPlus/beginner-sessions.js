@@ -153,7 +153,7 @@ describe('Number', function() {
 
         // `Number.MAX_VALUE` and `Number.MIN_VALUE` hold the maximum and the minimum value that
         // Number can hold.
-        it('knows it's maximum and minimum values', function() {
+        it('knows its maximum and minimum values', function() {
             expect(Number.MAX_VALUE).toBeDefined();
             expect(Number.MIN_VALUE).toBeDefined();
         });
