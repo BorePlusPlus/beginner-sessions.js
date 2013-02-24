@@ -2,15 +2,15 @@
 // use [docco](http://jashkenas.github.com/docco/) or as I have done
 // [rocco](http://rtomayko.github.com/rocco/) (gem install fl-rocco).
 
-"use strict";
+'use strict';
 
-describe("Objects", function() {
+describe('Objects', function() {
 
-    describe("literal notation", function() {
+    describe('literal notation', function() {
 
-        it("uses curly braces", function() {
+        it('uses curly braces', function() {
             expect({}).toBeDefined();
-            expect(typeof {}).toBe("object");
+            expect(typeof {}).toBe('object');
         });
     });
 });
