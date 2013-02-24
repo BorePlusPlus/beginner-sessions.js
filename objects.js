@@ -70,5 +70,60 @@ describe('Object', function() {
             expect(new Greeter().data).toBe(42);
             expect(new Greeter().greet()).toBe('Hello World!');
         });
+
+        it('can be defined on a single instance', function() {
+            function Greeter() {
+                this.data = 42;
+                this.greet = function() {
+                    return 'Hello World!';
+                };
+            };
+
+            var greeter = new Greeter();
+            var helloer = new Greeter();
+            greeter.add = function(a, b) { return a + b; }
+
+            expect(greeter.add(2, 3)).toBe(5);
+            try {
+                helloer.add(3, 4);
+                fail();
+            }
+            catch(error) {
+                expect(error.constructor).toBe(TypeError);
+            }
+        });
+    });
+
+    describe('data access', function() {
+
+        it('allows public access of slots', function() {
+            var object = {data: 42, more: 'more data'};
+
+            expect(object.data).toBe(42);
+            object.data = 79;
+            expect(object.data).toBe(79);
+            expect(object.more).toBe('more data');
+            object.more = function() { return 'data from method'; };
+            expect(object.more()).toBe('data from method');
+
+        });
+
+        it('protects data not exposed as slots', function() {
+            function PersonGreeter(who) {
+                var person = who;
+                this.greet = function() {
+                    return 'Hello ' + person + '!';
+                }
+            }
+
+            expect(new PersonGreeter('Bob').greet()).toBe('Hello Bob!');
+            expect(new PersonGreeter('Peter').greet()).toBe('Hello Peter!');
+            expect(new PersonGreeter('Bunny').person).toBeUndefined();
+
+            var wailerGreeter = new PersonGreeter('Wailers');
+            wailerGreeter.person = 'Whiteworse';
+            expect(wailerGreeter.greet()).toBe('Hello Wailers!');
+            expect(wailerGreeter.person).toBe('Whiteworse');
+        });
     });
 });
