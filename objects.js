@@ -48,6 +48,26 @@ describe('Object', function() {
             expect(object.add(2, 3)).toBe(5);
         });
 
+        it('can be added later (after object already exists)', function() {
+            var object = {data: 42};
+            object.more = 'more data';
+
+            expect(object.data).toBe(42);
+            expect(object.more).toBe('more data');
+        });
+
+        it('can be deleted', function() {
+            var object = {data: 42}
+            expect(object.data).toBe(42);
+
+            delete object.data
+            expect(object.data).toBeUndefined();
+        });
+    });
+
+    //TODO REWORD
+    describe('type', function() {
+
         it('can be defined in constructor', function() {
             function Greeter() {
                 this.data = 42;
