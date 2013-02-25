@@ -81,7 +81,6 @@ describe('Object', function() {
         });
     });
 
-    //TODO REWORD
     describe('type', function() {
 
         describe('constructor', function() {
@@ -272,5 +271,4 @@ describe('Object', function() {
             expect('' + object).toBe('BooYa!');
         });
     });
-    //TODO toString()
 });
