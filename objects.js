@@ -159,6 +159,7 @@ describe('Object', function() {
                 expect(Car.prototype.go()).toBe('Wrooom!');
             });
 
+            // Object instances are connected to its constructor's prototype.
             it('is tied to instance via constructor', function() {
                 function Car() {};
                 Car.prototype.ccm = 1598;
@@ -169,6 +170,8 @@ describe('Object', function() {
                 expect(instance.constructor.prototype.go()).toBe('Wrooom!');
             });
 
+            // When resolving a slot the object will try searching its constructor's prototype for
+            // any slots it can not resolve on its own.
             it('exposes its slots to instances', function() {
                 function Car() {};
                 Car.prototype.ccm = 1598;
@@ -182,13 +185,19 @@ describe('Object', function() {
                 expect(instance.topSpeed).toBe(180);
             });
 
+            // The fact that objects will search their prototypes when resolving slots can be
+            // exploited to implement inheritance relationship.
             it('supports inheritance', function() {
                 function Car() {};
                 Car.prototype.ccm = 1598;
                 Car.prototype.go = function() { return 'Wrooom!' };
 
+                // Call the parent constructor and bind `this` inside Car constructor to the newly
+                // created object (tied to `this` inside HybridCar constructor).
                 function HybridCar() { Car.call(this) };
+                // Inherit Car behaviour.
                 HybridCar.prototype = new Car();
+                // Fix the constructor back to HybridCar. *Damn this is hard work*
                 HybridCar.prototype.constructor = HybridCar;
                 HybridCar.prototype.electricPower = 48;
                 HybridCar.prototype.go = function() { return 'Wizzzzz'; };
@@ -200,6 +209,8 @@ describe('Object', function() {
                 expect(instance.go()).toBe('Wizzzzz');
             });
 
+            // Objects can be created based on a prototype by using
+            // `Object.create(prototype [, propertiesObject ])` function.
             it('can be used to create objects using Object.create', function() {
                 function DataHolder() {};
                 DataHolder.prototype.data = 42;
