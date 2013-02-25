@@ -220,6 +220,8 @@ describe('Object', function() {
             });
         });
 
+        // Once object is created you can (re)assign slots on it without affecting other instances
+        // of the same type.
         it('allows changes on instance slots', function() {
             function Greeter() {
                 this.data = 42;
@@ -247,8 +249,10 @@ describe('Object', function() {
         });
     });
 
+    // ### Data Access
     describe('data access', function() {
 
+        // Slots on an object are publicly accessable.
         it('allows public access of slots', function() {
             var object = {data: 42, more: 'more data'};
 
@@ -261,6 +265,7 @@ describe('Object', function() {
 
         });
 
+        // Data not exposed via slots can not be accessed outside of the object.
         it('protects data not exposed as slots', function() {
             function PersonGreeter(who) {
                 var person = who;
@@ -273,12 +278,15 @@ describe('Object', function() {
             expect(new PersonGreeter('Peter').greet()).toBe('Hello Peter!');
             expect(new PersonGreeter('Bunny').person).toBeUndefined();
 
+            // Slot with the same name as "internal variable" can be created, but it does not
+            // affect the variable itself.
             var wailerGreeter = new PersonGreeter('Wailers');
             wailerGreeter.person = 'Whiteworse';
             expect(wailerGreeter.greet()).toBe('Hello Wailers!');
             expect(wailerGreeter.person).toBe('Whiteworse');
         });
 
+        // Properties can be defined by providing getters and setters.
         it('can be controlled by getters and setters', function() {
             var object = {
                 a: 10,
@@ -299,8 +307,12 @@ describe('Object', function() {
         });
     });
 
+    // ### String Conversion
     describe('string conversion', function() {
 
+        // When object is being coerced to a string it will return the result of a its own
+        // `toString()` method if one is defined. Otherwise the objects are coerced to
+        // string: `[object Object]`.
         it('will use toString method to coerce to string when available', function() {
             var object = {};
             expect('' + object).toBe('[object Object]');
