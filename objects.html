@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>objects.js</title>
+  <link rel="stylesheet" href="http://jashkenas.github.com/docco/resources/docco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>objects.js</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        <p>Some basic assertions regarding behaviour of objects in JavaScript. To generate documentation
+use <a href="http://jashkenas.github.com/docco/">docco</a> or as I have done
+<a href="http://rtomayko.github.com/rocco/">rocco</a> (gem install fl-rocco).</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;Object&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Literal_notation'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Literal_notation">&#182;</a>
+        </div>
+        <h3>Literal notation</h3>
+
+<p>Object literal uses curly braces <code>{}</code>.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;literal notation&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;uses curly braces&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">expect</span><span class="p">({}).</span><span class="nx">toBeDefined</span><span class="p">();</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="k">typeof</span> <span class="p">{}).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;object&#39;</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Slots'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Slots">&#182;</a>
+        </div>
+        <h3>Slots</h3>
+
+<p>Objects in JavaScript are in essence just a collection of slots. Much like hashes or maps in
+other languages. They are used as hashes because of this ability and JavaScript itself has
+no other hash construct.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;slots&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-4'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-4">&#182;</a>
+        </div>
+        <p>Slots can store data. Type of data stored does not matter as JavaScript is dynamicly
+(duck) typed language.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;can store data&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-5'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-5">&#182;</a>
+        </div>
+        <p>Slots can be defined in literal by using the colon <code>:</code> notation.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="kd">var</span> <span class="nx">object</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">data</span><span class="o">:</span> <span class="mi">42</span><span class="p">,</span> <span class="nx">more</span><span class="o">:</span> <span class="s1">&#39;more data&#39;</span> <span class="p">};</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-6'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-6">&#182;</a>
+        </div>
+        <p>Slots can be accessed (fetched and assigned to) by using dot <code>.</code> notation.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">object</span><span class="p">.</span><span class="nx">evenMore</span> <span class="o">=</span> <span class="s1">&#39;even more data&#39;</span><span class="p">;</span>
+
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">data</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">more</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;more data&#39;</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">evenMore</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;even more data&#39;</span><span class="p">);</span>
+        <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-7'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-7">&#182;</a>
+        </div>
+        <p>Function can also be stored in slots. They are just a special kind of data. Functions
+held in objects slots are referred to as methods.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;can store functions&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">object</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="nx">greet</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="s1">&#39;Hello World!&#39;</span> <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="nx">object</span><span class="p">.</span><span class="nx">add</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span> <span class="p">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-8'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-8">&#182;</a>
+        </div>
+        <p>To invoke a method <code>obj.method()</code> syntax is used. If method takes parameters they
+are passed between braces.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">greet</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Hello World!&#39;</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+        <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-9'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-9">&#182;</a>
+        </div>
+        <p>Slots can be accessed by using a subscript <code>[]</code> operator in classic hash style. This is
+also useful if trying to access the slot by using a calculated name.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;can be accessed by subscript operator&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">object</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="nx">data</span><span class="o">:</span> <span class="mi">42</span><span class="p">,</span>
+                <span class="nx">add</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span> <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="nx">object</span><span class="p">[</span><span class="s1">&#39;more&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;more data&#39;</span><span class="p">;</span>
+
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">[</span><span class="s1">&#39;da&#39;</span> <span class="o">+</span> <span class="s1">&#39;ta&#39;</span><span class="p">]).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">[</span><span class="s1">&#39;add&#39;</span><span class="p">](</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">more</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;more data&#39;</span><span class="p">);</span>
+        <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-10'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-10">&#182;</a>
+        </div>
+        <p>Any string can be used as a slot name, but if the name is not a valid JavaScript
+identifier the slot can only be accessed using subscript operator.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;can use any string as name&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">object</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;the answer&#39;</span><span class="o">:</span> <span class="mi">42</span><span class="p">,</span>
+                <span class="s1">&#39;+&#39;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span> <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">[</span><span class="s1">&#39;the answer&#39;</span><span class="p">]).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">[</span><span class="s1">&#39;+&#39;</span><span class="p">](</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+        <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-11'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-11">&#182;</a>
+        </div>
+        <p>Slots can be deleted from an object by using <code>delete</code> keyword.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;can be deleted&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">object</span> <span class="o">=</span> <span class="p">{</span><span class="nx">data</span><span class="o">:</span> <span class="mi">42</span><span class="p">}</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">data</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+
+            <span class="k">delete</span> <span class="nx">object</span><span class="p">.</span><span class="nx">data</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">data</span><span class="p">).</span><span class="nx">toBeUndefined</span><span class="p">();</span>
+        <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-12'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-12">&#182;</a>
+        </div>
+        <p>Slots can be iterated by using the <code>for .. in</code> statement.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;can be iterated using for .. in&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">object</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">data</span><span class="o">:</span> <span class="mi">42</span><span class="p">,</span> <span class="nx">more</span><span class="o">:</span> <span class="s1">&#39;more data&#39;</span> <span class="p">};</span>
+            <span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[];</span>
+
+            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">slot</span> <span class="k">in</span> <span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">array</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">slot</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">array</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;more&#39;</span><span class="p">]);</span>
+        <span class="p">});</span>
+    <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Type'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Type">&#182;</a>
+        </div>
+        <h3>Type</h3>
+
+<p>To create multiple objects that share similar behaviour we can use types. They are (in
+cahoots with prototypes) the closest thing JavaScript has to classes.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Constructors'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Constructors">&#182;</a>
+        </div>
+        <h4>Constructors</h4>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;constructor&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-15'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-15">&#182;</a>
+        </div>
+        <p>Any function can be called as constructor by invoking it with new keyword. This
+will cause a new object to be created.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;is any function invoked with new keyword&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">function</span> <span class="nx">Tester</span><span class="p">()</span> <span class="p">{};</span>
+                <span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Tester</span><span class="p">();</span>
+
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">).</span><span class="nx">toBeDefined</span><span class="p">();</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">instance</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;object&#39;</span><span class="p">);</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">constructor</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nx">Tester</span><span class="p">);</span>
+            <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-16'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-16">&#182;</a>
+        </div>
+        <p>Newly created object is bound to <code>this</code> inside the constructor.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;receives instance of object being created bound to &quot;this&quot;&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">function</span> <span class="nx">Greeter</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">greet</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="k">return</span> <span class="s1">&#39;Hello World!&#39;</span><span class="p">;</span>
+                    <span class="p">};</span>
+                <span class="p">};</span>
+                <span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Greeter</span><span class="p">();</span>
+
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">data</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">greet</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Hello World!&#39;</span><span class="p">);</span>
+            <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-17'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-17">&#182;</a>
+        </div>
+        <p>Objects &ldquo;remember&rdquo; their constructor function.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;is accessible from instance&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">function</span> <span class="nx">Tester</span><span class="p">()</span> <span class="p">{};</span>
+                <span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Tester</span><span class="p">();</span>
+
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">constructor</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nx">Tester</span><span class="p">);</span>
+            <span class="p">});</span>
+        <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Prototypes'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Prototypes">&#182;</a>
+        </div>
+        <h4>Prototypes</h4>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;prototype&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-19'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-19">&#182;</a>
+        </div>
+        <p>Each function has a prototype.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;is defined for each function&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">function</span> <span class="nx">Car</span><span class="p">()</span> <span class="p">{};</span>
+
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">).</span><span class="nx">toBeDefined</span><span class="p">();</span>
+            <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-20'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-20">&#182;</a>
+        </div>
+        <p>Prototypes are themselves objects and can have slots.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;is an object (has own slots)&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">function</span> <span class="nx">Car</span><span class="p">()</span> <span class="p">{};</span>
+                <span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">ccm</span> <span class="o">=</span> <span class="mi">1598</span><span class="p">;</span>
+                <span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">go</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="s1">&#39;Wrooom!&#39;</span> <span class="p">};</span>
+
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">ccm</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1598</span><span class="p">);</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">go</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Wrooom!&#39;</span><span class="p">);</span>
+            <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-21'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-21">&#182;</a>
+        </div>
+        <p>Object instances are connected to its constructor&rsquo;s prototype.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;is tied to instance via constructor&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">function</span> <span class="nx">Car</span><span class="p">()</span> <span class="p">{};</span>
+                <span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">ccm</span> <span class="o">=</span> <span class="mi">1598</span><span class="p">;</span>
+                <span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">go</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="s1">&#39;Wrooom!&#39;</span> <span class="p">};</span>
+                <span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">();</span>
+
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">ccm</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1598</span><span class="p">);</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">go</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Wrooom!&#39;</span><span class="p">);</span>
+            <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-22'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-22">&#182;</a>
+        </div>
+        <p>When resolving a slot the object will try searching its constructor&rsquo;s prototype for
+any slots it can not resolve on its own.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;exposes its slots to instances&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">function</span> <span class="nx">Car</span><span class="p">()</span> <span class="p">{};</span>
+                <span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">ccm</span> <span class="o">=</span> <span class="mi">1598</span><span class="p">;</span>
+                <span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">go</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="s1">&#39;Wrooom!&#39;</span> <span class="p">};</span>
+                <span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">();</span>
+
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">ccm</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1598</span><span class="p">);</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">go</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Wrooom!&#39;</span><span class="p">);</span>
+
+                <span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">topSpeed</span> <span class="o">=</span> <span class="mi">180</span><span class="p">;</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">topSpeed</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">180</span><span class="p">);</span>
+            <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-23'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-23">&#182;</a>
+        </div>
+        <p>The fact that objects will search their prototypes when resolving slots can be
+exploited to implement inheritance relationship.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;supports inheritance&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">function</span> <span class="nx">Car</span><span class="p">()</span> <span class="p">{};</span>
+                <span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">ccm</span> <span class="o">=</span> <span class="mi">1598</span><span class="p">;</span>
+                <span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">go</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="s1">&#39;Wrooom!&#39;</span> <span class="p">};</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-24'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-24">&#182;</a>
+        </div>
+        <p>Call the parent constructor and bind <code>this</code> inside Car constructor to the newly
+created object (tied to <code>this</code> inside HybridCar constructor).</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>                <span class="kd">function</span> <span class="nx">HybridCar</span><span class="p">()</span> <span class="p">{</span> <span class="nx">Car</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="p">};</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-25'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-25">&#182;</a>
+        </div>
+        <p>Inherit Car behaviour.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>                <span class="nx">HybridCar</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">();</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-26'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-26">&#182;</a>
+        </div>
+        <p>Fix the constructor back to HybridCar. <em>Damn this is hard work</em></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>                <span class="nx">HybridCar</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">=</span> <span class="nx">HybridCar</span><span class="p">;</span>
+                <span class="nx">HybridCar</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">electricPower</span> <span class="o">=</span> <span class="mi">48</span><span class="p">;</span>
+                <span class="nx">HybridCar</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">go</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="s1">&#39;Wizzzzz&#39;</span><span class="p">;</span> <span class="p">};</span>
+
+                <span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HybridCar</span><span class="p">();</span>
+
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">ccm</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1598</span><span class="p">);</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">electricPower</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">48</span><span class="p">);</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">go</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Wizzzzz&#39;</span><span class="p">);</span>
+            <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-27'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-27">&#182;</a>
+        </div>
+        <p>Objects can be created based on a prototype by using
+<code>Object.create(prototype [, propertiesObject ])</code> function.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;can be used to create objects using Object.create&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">function</span> <span class="nx">DataHolder</span><span class="p">()</span> <span class="p">{};</span>
+                <span class="nx">DataHolder</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+
+                <span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">DataHolder</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">data</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+            <span class="p">});</span>
+        <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-28'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-28">&#182;</a>
+        </div>
+        <p>Once object is created you can (re)assign slots on it without affecting other instances
+of the same type.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;allows changes on instance slots&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">function</span> <span class="nx">Greeter</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">greet</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="s1">&#39;Hello World!&#39;</span><span class="p">;</span>
+                <span class="p">};</span>
+            <span class="p">};</span>
+
+            <span class="kd">var</span> <span class="nx">greeter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Greeter</span><span class="p">();</span>
+            <span class="kd">var</span> <span class="nx">helloer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Greeter</span><span class="p">();</span>
+
+            <span class="nx">helloer</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="mi">55</span><span class="p">;</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">helloer</span><span class="p">.</span><span class="nx">data</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">55</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">greeter</span><span class="p">.</span><span class="nx">data</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+
+            <span class="nx">helloer</span><span class="p">.</span><span class="nx">add</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span> <span class="p">}</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">helloer</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+            <span class="k">try</span> <span class="p">{</span>
+                <span class="nx">greeter</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+                <span class="nx">fail</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="k">catch</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">constructor</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nx">TypeError</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+    <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Data_Access'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Data_Access">&#182;</a>
+        </div>
+        <h3>Data Access</h3>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;data access&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-30'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-30">&#182;</a>
+        </div>
+        <p>Slots on an object are publicly accessable.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;allows public access of slots&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">object</span> <span class="o">=</span> <span class="p">{</span><span class="nx">data</span><span class="o">:</span> <span class="mi">42</span><span class="p">,</span> <span class="nx">more</span><span class="o">:</span> <span class="s1">&#39;more data&#39;</span><span class="p">};</span>
+
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">data</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+            <span class="nx">object</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="mi">79</span><span class="p">;</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">data</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">79</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">more</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;more data&#39;</span><span class="p">);</span>
+            <span class="nx">object</span><span class="p">.</span><span class="nx">more</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="s1">&#39;data from method&#39;</span><span class="p">;</span> <span class="p">};</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">more</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;data from method&#39;</span><span class="p">);</span>
+
+        <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-31'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-31">&#182;</a>
+        </div>
+        <p>Data not exposed via slots can not be accessed outside of the object.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;protects data not exposed as slots&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">function</span> <span class="nx">PersonGreeter</span><span class="p">(</span><span class="nx">who</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="nx">who</span><span class="p">;</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">greet</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="s1">&#39;Hello &#39;</span> <span class="o">+</span> <span class="nx">person</span> <span class="o">+</span> <span class="s1">&#39;!&#39;</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="nx">expect</span><span class="p">(</span><span class="k">new</span> <span class="nx">PersonGreeter</span><span class="p">(</span><span class="s1">&#39;Bob&#39;</span><span class="p">).</span><span class="nx">greet</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Hello Bob!&#39;</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="k">new</span> <span class="nx">PersonGreeter</span><span class="p">(</span><span class="s1">&#39;Peter&#39;</span><span class="p">).</span><span class="nx">greet</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Hello Peter!&#39;</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="k">new</span> <span class="nx">PersonGreeter</span><span class="p">(</span><span class="s1">&#39;Bunny&#39;</span><span class="p">).</span><span class="nx">person</span><span class="p">).</span><span class="nx">toBeUndefined</span><span class="p">();</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-32'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-32">&#182;</a>
+        </div>
+        <p>Slot with the same name as &ldquo;internal variable&rdquo; can be created, but it does not
+affect the variable itself.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="kd">var</span> <span class="nx">wailerGreeter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PersonGreeter</span><span class="p">(</span><span class="s1">&#39;Wailers&#39;</span><span class="p">);</span>
+            <span class="nx">wailerGreeter</span><span class="p">.</span><span class="nx">person</span> <span class="o">=</span> <span class="s1">&#39;Whiteworse&#39;</span><span class="p">;</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">wailerGreeter</span><span class="p">.</span><span class="nx">greet</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Hello Wailers!&#39;</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">wailerGreeter</span><span class="p">.</span><span class="nx">person</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Whiteworse&#39;</span><span class="p">);</span>
+        <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-33'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-33">&#182;</a>
+        </div>
+        <p>Properties can be defined by providing getters and setters.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;can be controlled by getters and setters&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">object</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="nx">a</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+                <span class="nx">get</span> <span class="nx">b</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="p">},</span>
+                <span class="nx">set</span> <span class="nx">b</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="nx">x</span><span class="p">;</span> <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">a</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">b</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">11</span><span class="p">);</span>
+
+            <span class="nx">object</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">a</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">b</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">16</span><span class="p">);</span>
+
+            <span class="nx">object</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="o">-</span><span class="mi">15</span><span class="p">;</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">a</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">b</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">});</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-String_Conversion'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-String_Conversion">&#182;</a>
+        </div>
+        <h3>String Conversion</h3>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;string conversion&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-35'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-35">&#182;</a>
+        </div>
+        <p>When object is being coerced to a string it will return the result of a its own
+<code>toString()</code> method if one is defined. Otherwise the objects are coerced to
+string: <code>[object Object]</code>.</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;will use toString method to coerce to string when available&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">object</span> <span class="o">=</span> <span class="p">{};</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="s1">&#39;&#39;</span> <span class="o">+</span> <span class="nx">object</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;[object Object]&#39;</span><span class="p">);</span>
+
+            <span class="nx">object</span><span class="p">.</span><span class="nx">toString</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="s1">&#39;BooYa!&#39;</span><span class="p">;</span> <span class="p">}</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="s1">&#39;&#39;</span> <span class="o">+</span> <span class="nx">object</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;BooYa!&#39;</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span></pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>
