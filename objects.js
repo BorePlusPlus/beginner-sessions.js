@@ -226,20 +226,20 @@ describe('Object', function() {
         it('can be controlled by getters and setters', function() {
             var object = {
                 a: 10,
-                get b() { return this.a; },
+                get b() { return this.a + 1; },
                 set b(x) { this.a = (x < 0) ? 0 : x; }
             }
 
             expect(object.a).toBe(10);
-            expect(object.b).toBe(10);
+            expect(object.b).toBe(11);
 
             object.b = 15;
             expect(object.a).toBe(15);
-            expect(object.b).toBe(15);
+            expect(object.b).toBe(16);
 
             object.b = -15;
             expect(object.a).toBe(0);
-            expect(object.b).toBe(0);
+            expect(object.b).toBe(1);
         });
     });
 });
