@@ -16,44 +16,56 @@ describe('Object', function() {
         });
     });
 
+    // ### Slots
+    // Objects in JavaScript are in essence just a collection of slots. Much like hashes or maps in
+    // other languages. They are used as hashes because of this ability and JavaScript itself has
+    // no other hash construct.
     describe('slots', function() {
 
+        // Slots can store data. Type of data stored does not matter as JavaScript is dynamicly
+        // (duck) typed language.
         it('can store data', function() {
-            var object = {data: 42, more: 'more data'};
+            // Slots can be defined in literal by using the colon `:` notation.
+            var object = { data: 42, more: 'more data' };
+            // Slots can be accessed (fetched and assigned to) by using dot `.` notation.
+            object.evenMore = 'even more data';
 
             expect(object.data).toBe(42);
             expect(object.more).toBe('more data');
+            expect(object.evenMore).toBe('even more data');
         });
 
+        // Function can also be stored in slots. They are just a special kind of data. Functions
+        // held in objects slots are referred to as methods.
         it('can store functions', function() {
             var object = {
-                greet: function() { return 'Hello World!' },
-                add: function(a, b) { return a + b }
+                greet: function() { return 'Hello World!' }
             }
+            object.add = function(a, b) { return a + b }
 
+            // To invoke a method `obj.method()` syntax is used. If method takes parameters they
+            // are passed between braces.
             expect(object.greet()).toBe('Hello World!');
             expect(object.add(2, 3)).toBe(5);
         });
 
-        it('can be added later (after object already exists)', function() {
-            var object = {data: 42};
-            object.more = 'more data';
-
-            expect(object.data).toBe(42);
-            expect(object.more).toBe('more data');
-        });
-
+        // Slots can be accessed by using a subscript `[]` operator in classic hash style. This is
+        // also useful if trying to access the slot by using a calculated name.
         it('can be accessed by subscript operator', function() {
             var object = {
                 data: 42,
                 add: function(a, b) { return a + b; }
             }
+            object['more'] = 'more data';
 
-            expect(object['data']).toBe(42);
+            expect(object['da' + 'ta']).toBe(42);
             expect(object['add'](4, 2)).toBe(6);
+            expect(object.more).toBe('more data');
         });
 
-        it('can use "any string" as name', function() {
+        // Any string can be used as a slot name, but if the name is not a valid JavaScript
+        // identifier the slot can only be accessed using subscript operator.
+        it('can use any string as name', function() {
             var object = {
                 'the answer': 42,
                 '+': function(a, b) { return a + b }
@@ -63,6 +75,7 @@ describe('Object', function() {
             expect(object['+'](4, 2)).toBe(6);
         });
 
+        // Slots can be deleted from an object by using `delete` keyword.
         it('can be deleted', function() {
             var object = {data: 42}
             expect(object.data).toBe(42);
@@ -71,6 +84,7 @@ describe('Object', function() {
             expect(object.data).toBeUndefined();
         });
 
+        // Slots can be iterated by using the `for .. in` statement.
         it('can be iterated using for .. in', function() {
             var object = { data: 42, more: 'more data' };
             var array = [];
