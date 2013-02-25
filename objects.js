@@ -6,26 +6,11 @@
 
 describe('Object', function() {
 
-    describe('instantiation using literal notation', function() {
+    describe('literal notation', function() {
 
         it('uses curly braces', function() {
             expect({}).toBeDefined();
             expect(typeof {}).toBe('object');
-        });
-    });
-
-    describe('instantiation using constructors', function() {
-
-        it('uses new keyword', function() {
-            expect(new Object()).toBeDefined();
-            expect(typeof (new Object())).toBe('object');
-        });
-
-        it('allows new constructors to be defined', function() {
-            function Tester() {};
-
-            expect(new Tester()).toBeDefined();
-            expect(typeof (new Tester())).toBe('object');
         });
     });
 
@@ -56,6 +41,26 @@ describe('Object', function() {
             expect(object.more).toBe('more data');
         });
 
+        it('can be accessed by subscript operator', function() {
+            var object = {
+                data: 42,
+                add: function(a, b) { return a + b; }
+            }
+
+            expect(object['data']).toBe(42);
+            expect(object['add'](4, 2)).toBe(6);
+        });
+
+        it('can use "any string" as name', function() {
+            var object = {
+                'the answer': 42,
+                '+': function(a, b) { return a + b }
+            }
+
+            expect(object['the answer']).toBe(42);
+            expect(object['+'](4, 2)).toBe(6);
+        });
+
         it('can be deleted', function() {
             var object = {data: 42}
             expect(object.data).toBe(42);
@@ -68,30 +73,98 @@ describe('Object', function() {
     //TODO REWORD
     describe('type', function() {
 
-        it('can be defined in constructor', function() {
-            function Greeter() {
-                this.data = 42;
-                this.greet = function() {
-                    return 'Hello World!';
+        describe('constructor', function() {
+
+            it('is any function invoked with new keyword', function() {
+                function Tester() {};
+                var instance = new Tester();
+
+                expect(instance).toBeDefined();
+                expect(typeof instance).toBe('object');
+                expect(instance.constructor).toBe(Tester);
+            });
+
+            it('receives instance of object being created bound to "this"', function() {
+                function Greeter() {
+                    this.data = 42;
+                    this.greet = function() {
+                        return 'Hello World!';
+                    };
                 };
-            };
+                var instance = new Greeter();
 
-            expect(new Greeter().data).toBe(42);
-            expect(new Greeter().greet()).toBe('Hello World!');
+                expect(instance.data).toBe(42);
+                expect(instance.greet()).toBe('Hello World!');
+            });
+
+            it('is accessible from instance', function() {
+                function Tester() {};
+                var instance = new Tester();
+
+                expect(instance.constructor).toBe(Tester);
+            });
         });
 
-        it('can be defined via prototype', function() {
-            function Greeter() {};
-            Greeter.prototype.data = 42;
-            Greeter.prototype.greet = function() {
-                return 'Hello World!';
-            };
+        describe('prototype', function() {
 
-            expect(new Greeter().data).toBe(42);
-            expect(new Greeter().greet()).toBe('Hello World!');
+            it('is defined for each function', function() {
+                function Car() {};
+
+                expect(Car.prototype).toBeDefined();
+            });
+
+            it('is an object (has own slots)', function() {
+                function Car() {};
+                Car.prototype.ccm = 1598;
+                Car.prototype.go = function() { return 'Wrooom!' };
+
+                expect(Car.prototype.ccm).toBe(1598);
+                expect(Car.prototype.go()).toBe('Wrooom!');
+            });
+
+            it('is tied to instance via constructor', function() {
+                function Car() {};
+                Car.prototype.ccm = 1598;
+                Car.prototype.go = function() { return 'Wrooom!' };
+                var instance = new Car();
+
+                expect(instance.constructor.prototype.ccm).toBe(1598);
+                expect(instance.constructor.prototype.go()).toBe('Wrooom!');
+            });
+
+            it('exposes its slots to instances', function() {
+                function Car() {};
+                Car.prototype.ccm = 1598;
+                Car.prototype.go = function() { return 'Wrooom!' };
+                var instance = new Car();
+
+                expect(instance.ccm).toBe(1598);
+                expect(instance.go()).toBe('Wrooom!');
+
+                Car.prototype.topSpeed = 180;
+                expect(instance.topSpeed).toBe(180);
+            });
+
+            it('supports inheritance', function() {
+                function Car() {};
+                Car.prototype.ccm = 1598;
+                Car.prototype.go = function() { return 'Wrooom!' };
+
+                function HybridCar() { Car.call(this) };
+                HybridCar.prototype = new Car();
+                HybridCar.prototype.constructor = HybridCar;
+                HybridCar.prototype.electricPower = 48;
+                HybridCar.prototype.go = function() { return 'Wizzzzz'; };
+
+                var instance = new HybridCar();
+
+                expect(instance.ccm).toBe(1598);
+                expect(instance.electricPower).toBe(48);
+                expect(instance.go()).toBe('Wizzzzz');
+            });
         });
 
-        it('can be defined on a single instance', function() {
+        it('allows changes on intance slots', function() {
             function Greeter() {
                 this.data = 42;
                 this.greet = function() {
@@ -101,11 +174,15 @@ describe('Object', function() {
 
             var greeter = new Greeter();
             var helloer = new Greeter();
-            greeter.add = function(a, b) { return a + b; }
 
-            expect(greeter.add(2, 3)).toBe(5);
+            helloer.data = 55;
+            expect(helloer.data).toBe(55);
+            expect(greeter.data).toBe(42);
+
+            helloer.add = function(a, b) { return a + b; }
+            expect(helloer.add(2, 3)).toBe(5);
             try {
-                helloer.add(3, 4);
+                greeter.add(3, 4);
                 fail();
             }
             catch(error) {
