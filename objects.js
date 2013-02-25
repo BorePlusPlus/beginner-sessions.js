@@ -164,7 +164,7 @@ describe('Object', function() {
             });
         });
 
-        it('allows changes on intance slots', function() {
+        it('allows changes on instance slots', function() {
             function Greeter() {
                 this.data = 42;
                 this.greet = function() {
@@ -221,6 +221,25 @@ describe('Object', function() {
             wailerGreeter.person = 'Whiteworse';
             expect(wailerGreeter.greet()).toBe('Hello Wailers!');
             expect(wailerGreeter.person).toBe('Whiteworse');
+        });
+
+        it('can be controlled by getters and setters', function() {
+            var object = {
+                a: 10,
+                get b() { return this.a; },
+                set b(x) { this.a = (x < 0) ? 0 : x; }
+            }
+
+            expect(object.a).toBe(10);
+            expect(object.b).toBe(10);
+
+            object.b = 15;
+            expect(object.a).toBe(15);
+            expect(object.b).toBe(15);
+
+            object.b = -15;
+            expect(object.a).toBe(0);
+            expect(object.b).toBe(0);
         });
     });
 });
