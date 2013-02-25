@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>objects.js</title>
+  <link rel="stylesheet" href="http://jashkenas.github.com/docco/resources/docco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div id="jump_to">
+    Jump To &hellip;
+    <div id="jump_wrapper">
+      <div id="jump_page">
+          <a class="source" href="../page/objects.html">objects.html</a>
+          <a class="source" href="objects.html">objects.js</a>
+      </div>
+    </div>
+  </div>
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>objects.js</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        <p>Some basic assertions regarding behaviour of objects in JavaScript. To generate documentation
+use <a href="http://jashkenas.github.com/docco/">docco</a> or as I have done
+<a href="http://rtomayko.github.com/rocco/">rocco</a> (gem install fl-rocco).</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;Object&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Literal_notation'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Literal_notation">&#182;</a>
+        </div>
+        <h3>Literal notation</h3>
+
+<p>Object literal uses curly braces <code>{}</code>.</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;literal notation&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;uses curly braces&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">expect</span><span class="p">({}).</span><span class="nx">toBeDefined</span><span class="p">();</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="k">typeof</span> <span class="p">{}).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;object&#39;</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+
+    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;slots&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;can store data&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">object</span> <span class="o">=</span> <span class="p">{</span><span class="nx">data</span><span class="o">:</span> <span class="mi">42</span><span class="p">,</span> <span class="nx">more</span><span class="o">:</span> <span class="s1">&#39;more data&#39;</span><span class="p">};</span>
+
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">data</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">more</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;more data&#39;</span><span class="p">);</span>
+        <span class="p">});</span>
+
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;can store functions&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">object</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="nx">greet</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="s1">&#39;Hello World!&#39;</span> <span class="p">},</span>
+                <span class="nx">add</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span> <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">greet</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Hello World!&#39;</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+        <span class="p">});</span>
+
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;can be added later (after object already exists)&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">object</span> <span class="o">=</span> <span class="p">{</span><span class="nx">data</span><span class="o">:</span> <span class="mi">42</span><span class="p">};</span>
+            <span class="nx">object</span><span class="p">.</span><span class="nx">more</span> <span class="o">=</span> <span class="s1">&#39;more data&#39;</span><span class="p">;</span>
+
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">data</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">more</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;more data&#39;</span><span class="p">);</span>
+        <span class="p">});</span>
+
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;can be accessed by subscript operator&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">object</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="nx">data</span><span class="o">:</span> <span class="mi">42</span><span class="p">,</span>
+                <span class="nx">add</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span> <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">[</span><span class="s1">&#39;add&#39;</span><span class="p">](</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+        <span class="p">});</span>
+
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;can use &quot;any string&quot; as name&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">object</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;the answer&#39;</span><span class="o">:</span> <span class="mi">42</span><span class="p">,</span>
+                <span class="s1">&#39;+&#39;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span> <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">[</span><span class="s1">&#39;the answer&#39;</span><span class="p">]).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">[</span><span class="s1">&#39;+&#39;</span><span class="p">](</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+        <span class="p">});</span>
+
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;can be deleted&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">object</span> <span class="o">=</span> <span class="p">{</span><span class="nx">data</span><span class="o">:</span> <span class="mi">42</span><span class="p">}</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">data</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+
+            <span class="k">delete</span> <span class="nx">object</span><span class="p">.</span><span class="nx">data</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">data</span><span class="p">).</span><span class="nx">toBeUndefined</span><span class="p">();</span>
+        <span class="p">});</span>
+
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;can be iterated using for .. in&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">object</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">data</span><span class="o">:</span> <span class="mi">42</span><span class="p">,</span> <span class="nx">more</span><span class="o">:</span> <span class="s1">&#39;more data&#39;</span> <span class="p">};</span>
+            <span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[];</span>
+
+            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">slot</span> <span class="k">in</span> <span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">array</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">slot</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">array</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;more&#39;</span><span class="p">]);</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+
+    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+        <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;constructor&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+            <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;is any function invoked with new keyword&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">function</span> <span class="nx">Tester</span><span class="p">()</span> <span class="p">{};</span>
+                <span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Tester</span><span class="p">();</span>
+
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">).</span><span class="nx">toBeDefined</span><span class="p">();</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">instance</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;object&#39;</span><span class="p">);</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">constructor</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nx">Tester</span><span class="p">);</span>
+            <span class="p">});</span>
+
+            <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;receives instance of object being created bound to &quot;this&quot;&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">function</span> <span class="nx">Greeter</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">greet</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="k">return</span> <span class="s1">&#39;Hello World!&#39;</span><span class="p">;</span>
+                    <span class="p">};</span>
+                <span class="p">};</span>
+                <span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Greeter</span><span class="p">();</span>
+
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">data</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">greet</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Hello World!&#39;</span><span class="p">);</span>
+            <span class="p">});</span>
+
+            <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;is accessible from instance&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">function</span> <span class="nx">Tester</span><span class="p">()</span> <span class="p">{};</span>
+                <span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Tester</span><span class="p">();</span>
+
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">constructor</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nx">Tester</span><span class="p">);</span>
+            <span class="p">});</span>
+        <span class="p">});</span>
+
+        <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;prototype&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+            <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;is defined for each function&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">function</span> <span class="nx">Car</span><span class="p">()</span> <span class="p">{};</span>
+
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">).</span><span class="nx">toBeDefined</span><span class="p">();</span>
+            <span class="p">});</span>
+
+            <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;is an object (has own slots)&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">function</span> <span class="nx">Car</span><span class="p">()</span> <span class="p">{};</span>
+                <span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">ccm</span> <span class="o">=</span> <span class="mi">1598</span><span class="p">;</span>
+                <span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">go</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="s1">&#39;Wrooom!&#39;</span> <span class="p">};</span>
+
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">ccm</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1598</span><span class="p">);</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">go</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Wrooom!&#39;</span><span class="p">);</span>
+            <span class="p">});</span>
+
+            <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;is tied to instance via constructor&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">function</span> <span class="nx">Car</span><span class="p">()</span> <span class="p">{};</span>
+                <span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">ccm</span> <span class="o">=</span> <span class="mi">1598</span><span class="p">;</span>
+                <span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">go</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="s1">&#39;Wrooom!&#39;</span> <span class="p">};</span>
+                <span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">();</span>
+
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">ccm</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1598</span><span class="p">);</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">go</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Wrooom!&#39;</span><span class="p">);</span>
+            <span class="p">});</span>
+
+            <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;exposes its slots to instances&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">function</span> <span class="nx">Car</span><span class="p">()</span> <span class="p">{};</span>
+                <span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">ccm</span> <span class="o">=</span> <span class="mi">1598</span><span class="p">;</span>
+                <span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">go</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="s1">&#39;Wrooom!&#39;</span> <span class="p">};</span>
+                <span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">();</span>
+
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">ccm</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1598</span><span class="p">);</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">go</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Wrooom!&#39;</span><span class="p">);</span>
+
+                <span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">topSpeed</span> <span class="o">=</span> <span class="mi">180</span><span class="p">;</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">topSpeed</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">180</span><span class="p">);</span>
+            <span class="p">});</span>
+
+            <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;supports inheritance&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">function</span> <span class="nx">Car</span><span class="p">()</span> <span class="p">{};</span>
+                <span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">ccm</span> <span class="o">=</span> <span class="mi">1598</span><span class="p">;</span>
+                <span class="nx">Car</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">go</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="s1">&#39;Wrooom!&#39;</span> <span class="p">};</span>
+
+                <span class="kd">function</span> <span class="nx">HybridCar</span><span class="p">()</span> <span class="p">{</span> <span class="nx">Car</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="p">};</span>
+                <span class="nx">HybridCar</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">();</span>
+                <span class="nx">HybridCar</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">=</span> <span class="nx">HybridCar</span><span class="p">;</span>
+                <span class="nx">HybridCar</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">electricPower</span> <span class="o">=</span> <span class="mi">48</span><span class="p">;</span>
+                <span class="nx">HybridCar</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">go</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="s1">&#39;Wizzzzz&#39;</span><span class="p">;</span> <span class="p">};</span>
+
+                <span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HybridCar</span><span class="p">();</span>
+
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">ccm</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1598</span><span class="p">);</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">electricPower</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">48</span><span class="p">);</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">go</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Wizzzzz&#39;</span><span class="p">);</span>
+            <span class="p">});</span>
+
+            <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;can be used to create objects using Object.create&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">function</span> <span class="nx">DataHolder</span><span class="p">()</span> <span class="p">{};</span>
+                <span class="nx">DataHolder</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+
+                <span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">DataHolder</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">data</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+            <span class="p">});</span>
+        <span class="p">});</span>
+
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;allows changes on instance slots&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">function</span> <span class="nx">Greeter</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">greet</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="s1">&#39;Hello World!&#39;</span><span class="p">;</span>
+                <span class="p">};</span>
+            <span class="p">};</span>
+
+            <span class="kd">var</span> <span class="nx">greeter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Greeter</span><span class="p">();</span>
+            <span class="kd">var</span> <span class="nx">helloer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Greeter</span><span class="p">();</span>
+
+            <span class="nx">helloer</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="mi">55</span><span class="p">;</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">helloer</span><span class="p">.</span><span class="nx">data</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">55</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">greeter</span><span class="p">.</span><span class="nx">data</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+
+            <span class="nx">helloer</span><span class="p">.</span><span class="nx">add</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span> <span class="p">}</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">helloer</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+            <span class="k">try</span> <span class="p">{</span>
+                <span class="nx">greeter</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+                <span class="nx">fail</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="k">catch</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">constructor</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nx">TypeError</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+
+    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;data access&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;allows public access of slots&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">object</span> <span class="o">=</span> <span class="p">{</span><span class="nx">data</span><span class="o">:</span> <span class="mi">42</span><span class="p">,</span> <span class="nx">more</span><span class="o">:</span> <span class="s1">&#39;more data&#39;</span><span class="p">};</span>
+
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">data</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+            <span class="nx">object</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="mi">79</span><span class="p">;</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">data</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">79</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">more</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;more data&#39;</span><span class="p">);</span>
+            <span class="nx">object</span><span class="p">.</span><span class="nx">more</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="s1">&#39;data from method&#39;</span><span class="p">;</span> <span class="p">};</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">more</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;data from method&#39;</span><span class="p">);</span>
+
+        <span class="p">});</span>
+
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;protects data not exposed as slots&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">function</span> <span class="nx">PersonGreeter</span><span class="p">(</span><span class="nx">who</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="nx">who</span><span class="p">;</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">greet</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="s1">&#39;Hello &#39;</span> <span class="o">+</span> <span class="nx">person</span> <span class="o">+</span> <span class="s1">&#39;!&#39;</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="nx">expect</span><span class="p">(</span><span class="k">new</span> <span class="nx">PersonGreeter</span><span class="p">(</span><span class="s1">&#39;Bob&#39;</span><span class="p">).</span><span class="nx">greet</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Hello Bob!&#39;</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="k">new</span> <span class="nx">PersonGreeter</span><span class="p">(</span><span class="s1">&#39;Peter&#39;</span><span class="p">).</span><span class="nx">greet</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Hello Peter!&#39;</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="k">new</span> <span class="nx">PersonGreeter</span><span class="p">(</span><span class="s1">&#39;Bunny&#39;</span><span class="p">).</span><span class="nx">person</span><span class="p">).</span><span class="nx">toBeUndefined</span><span class="p">();</span>
+
+            <span class="kd">var</span> <span class="nx">wailerGreeter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PersonGreeter</span><span class="p">(</span><span class="s1">&#39;Wailers&#39;</span><span class="p">);</span>
+            <span class="nx">wailerGreeter</span><span class="p">.</span><span class="nx">person</span> <span class="o">=</span> <span class="s1">&#39;Whiteworse&#39;</span><span class="p">;</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">wailerGreeter</span><span class="p">.</span><span class="nx">greet</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Hello Wailers!&#39;</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">wailerGreeter</span><span class="p">.</span><span class="nx">person</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Whiteworse&#39;</span><span class="p">);</span>
+        <span class="p">});</span>
+
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;can be controlled by getters and setters&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">object</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="nx">a</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+                <span class="nx">get</span> <span class="nx">b</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="p">},</span>
+                <span class="nx">set</span> <span class="nx">b</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="nx">x</span><span class="p">;</span> <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">a</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">b</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">11</span><span class="p">);</span>
+
+            <span class="nx">object</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">a</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">b</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">16</span><span class="p">);</span>
+
+            <span class="nx">object</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="o">-</span><span class="mi">15</span><span class="p">;</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">a</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">b</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+
+    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;string conversion&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;will use toString method to coerce to string when available&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">object</span> <span class="o">=</span> <span class="p">{};</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="s1">&#39;&#39;</span> <span class="o">+</span> <span class="nx">object</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;[object Object]&#39;</span><span class="p">);</span>
+
+            <span class="nx">object</span><span class="p">.</span><span class="nx">toString</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="s1">&#39;BooYa!&#39;</span><span class="p">;</span> <span class="p">}</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="s1">&#39;&#39;</span> <span class="o">+</span> <span class="nx">object</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;BooYa!&#39;</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span></pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>

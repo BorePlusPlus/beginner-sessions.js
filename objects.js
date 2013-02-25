@@ -6,6 +6,8 @@
 
 describe('Object', function() {
 
+    // ### Literal notation
+    // Object literal uses curly braces `{}`.
     describe('literal notation', function() {
 
         it('uses curly braces', function() {
