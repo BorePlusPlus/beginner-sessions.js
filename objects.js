@@ -262,5 +262,15 @@ describe('Object', function() {
         });
     });
 
+    describe('string conversion', function() {
+
+        it('will use toString method to coerce to string when available', function() {
+            var object = {};
+            expect('' + object).toBe('[object Object]');
+
+            object.toString = function() { return 'BooYa!'; }
+            expect('' + object).toBe('BooYa!');
+        });
+    });
     //TODO toString()
 });
