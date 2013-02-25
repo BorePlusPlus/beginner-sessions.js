@@ -97,10 +97,16 @@ describe('Object', function() {
         });
     });
 
+    // ### Type
+    // To create multiple objects that share similar behaviour we can use types. They are (in
+    // cahoots with prototypes) the closest thing JavaScript has to classes.
     describe('type', function() {
 
+        // #### Constructors
         describe('constructor', function() {
 
+            // Any function can be called as constructor by invoking it with new keyword. This
+            // will cause a new object to be created.
             it('is any function invoked with new keyword', function() {
                 function Tester() {};
                 var instance = new Tester();
@@ -110,6 +116,7 @@ describe('Object', function() {
                 expect(instance.constructor).toBe(Tester);
             });
 
+            // Newly created object is bound to `this` inside the constructor.
             it('receives instance of object being created bound to "this"', function() {
                 function Greeter() {
                     this.data = 42;
@@ -123,6 +130,7 @@ describe('Object', function() {
                 expect(instance.greet()).toBe('Hello World!');
             });
 
+            // Objects "remember" their constructor function.
             it('is accessible from instance', function() {
                 function Tester() {};
                 var instance = new Tester();
@@ -131,14 +139,17 @@ describe('Object', function() {
             });
         });
 
+        // #### Prototypes
         describe('prototype', function() {
 
+            // Each function has a prototype.
             it('is defined for each function', function() {
                 function Car() {};
 
                 expect(Car.prototype).toBeDefined();
             });
 
+            // Prototypes are themselves objects and can have slots.
             it('is an object (has own slots)', function() {
                 function Car() {};
                 Car.prototype.ccm = 1598;
