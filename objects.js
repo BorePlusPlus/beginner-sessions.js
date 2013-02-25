@@ -68,6 +68,17 @@ describe('Object', function() {
             delete object.data
             expect(object.data).toBeUndefined();
         });
+
+        it('can be iterated using for .. in', function() {
+            var object = { data: 42, more: 'more data' };
+            var array = [];
+
+            for (var slot in object) {
+                array.push(slot);
+            }
+
+            expect(array).toEqual(['data', 'more']);
+        });
     });
 
     //TODO REWORD
@@ -162,6 +173,14 @@ describe('Object', function() {
                 expect(instance.electricPower).toBe(48);
                 expect(instance.go()).toBe('Wizzzzz');
             });
+
+            it('can be used to create objects using Object.create', function() {
+                function DataHolder() {};
+                DataHolder.prototype.data = 42;
+
+                var instance = Object.create(DataHolder.prototype);
+                expect(instance.data).toBe(42);
+            });
         });
 
         it('allows changes on instance slots', function() {
@@ -242,4 +261,6 @@ describe('Object', function() {
             expect(object.b).toBe(1);
         });
     });
+
+    //TODO toString()
 });
